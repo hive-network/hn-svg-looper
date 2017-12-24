@@ -10,27 +10,12 @@
         width: 500px;
       }
 
-      object,
-      div {
-        /* width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0; */
-      }
-
       .hidden {
         display: none;
       }
     </style>
     <div id="svgWrapper"></div>
-    <!-- <template is="dom-if" if="[[loading]]" restamp="true">
-      <img class="svgImage" height$="[[svgHeight]]" width$="[[svgWidth]]" src="[[path]]">
-    </template> -->
     <object id="svgImage" type="image/svg+xml" />
-
   </template>
 
   <script>
@@ -52,78 +37,23 @@
           },
           path: {
             type: String,
-            value: '/images/logo_loader_loop.svg'
           },
-          // svgWidth: {
-          //   type: String,
-          //   value: '100px'
-          // },
-          // svgHeight: {
-          //   type: String,
-          //   value: '100px'
-          // },
-          loading: {
-            type: Boolean,
-            value: true
-          }
         };
       }
       ready() {
         super.ready();
-        const svg = this.shadowRoot.querySelector('#svgImage')
-        svg.setAttribute('data', this.path);
-        // const svgImageBg =  this.shadowRoot.querySelector('#svgImageBg')
-        // svgImageBg.setAttribute('src', this.path);
-        this._loop();
+        const svgImage = this.shadowRoot.querySelector('#svgImage')
+        if (!this.path) {
+          console.log('a path is required');
+        } else {
+          svgImage.setAttribute('data', this.path);
+          this._loop();
+        }
       }
       _loop() {
         const self = this;
 
         setTimeout(function () {
-          // self.loopNum = self.loopNum == 1 ? 2 : 1;
-          // self.set('loading', false);
-
-          // self.set('svgPath', self.path + '?l-num=' + self.loopNum);
-          console.log('self.svgPath' + self.path);
-          // const svgImage = self.$.svgImage;
-          // const oldSVG =  self.shadowRoot.querySelector('.svgImage')
-          // const newSVG = oldSVG.cloneNode(true);
-          // newSVG.setAttribute('src', self.path);
-
-
-          // var newElement = document.createElement('img');
-          // newElement.setAttribute('class', 'svgImage');
-          // var attr = oldSVG.attributes;
-
-          // Object.keys(attr).forEach(x => {
-          //   newElement.setAttribute(attr[x].name, attr[x].value);
-          // });
-          // oldSVG.setAttribute('id', 'svgImage');
-          // oldSVG.setAttribute('type', 'image/svg+xml');
-          // oldSVG.setAttribute('data', self.path);
-          // oldSVG.setAttribute('src', self.path);
-
-          // newElement.innerHTML = svgImage.innerHTML;
-
-          //  self.shadowRoot.removeChild(oldSVG);
-          //  self.shadowRoot.appendChild(newElement);
-
-          // var svgObject =  self.shadowRoot.querySelector('#svgImage').contentDocument;
-          // var svgRoot = Polymer.dom(svgObject).querySelector("svg").outerHTML;
-          // var suspendID = svgRoot.suspendRedraw(5000);
-          // svgRoot.unsuspendRedrawAll();
-
-          // var suspendID =  self.shadowRoot.querySelector('#svgImage').contentDocument.querySelector('svg').suspendRedraw(5000);
-          // var element =  self.shadowRoot.querySelector('#svgImage');
-          // var cloneElement = element.cloneNode(true);
-          //  self.shadowRoot.replaceChild(cloneElement, element);
-          // self.set('loading', true);
-
-          //  self.shadowRoot.querySelector('#svgImage').contentDocument.querySelector('svg').unsuspendRedrawAll();
-          // self.loading = false;
-
-          // self.appendChild(newElement);
-          //  self.shadowRoot.appendChild(newElement);
           self.shadowRoot.querySelector('#svgImage').classList.remove("hidden");
 
           var wrapperNode = self.shadowRoot.querySelector('#svgWrapper');
@@ -133,7 +63,6 @@
           var svgContent = self.shadowRoot.querySelector('#svgImage').contentDocument.querySelector('svg').cloneNode(true);
           wrapperNode.appendChild(svgContent);
           self.shadowRoot.querySelector('#svgImage').classList.add("hidden");
-
 
           self._loop();
         }, self.loopTime);

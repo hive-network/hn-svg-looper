@@ -21,7 +21,8 @@
     "pre-push": "^0.1.1"
   },
   "pre-push": [
-    "lint"
+    "lint",
+    "test"
   ],
   "author": "",
   "license": "ISC"
