@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>hn-svg-looper test</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../hn-svg-looper.html">
+</head>
+
+<body>
+
+  <test-fixture id="BasicTestFixture">
+    <template>
+      <hn-svg-looper></hn-svg-looper>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="ChangedPropertyTestFixture">
+    <template>
+      <hn-svg-looper src="/images/logo_loader_loop.svg"></hn-svg-looper>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('hn-svg-looper', () => {
+
+      test('instantiating the element with default properties works', () => {
+        const element = fixture('BasicTestFixture');
+        // assert.equal(element.width, '250px');
+        const elementShadowRoot = element.shadowRoot;
+        const elementImage = elementShadowRoot.querySelector('#svgImage');
+        // assert.equal(elementImage.src, '/images/logo_loader_loop.svg?l-num=1');
+        assert.include(elementImage.data, '/images/logo_loader_loop.svg', 'src contains substring');
+
+      });
+
+    });
+  </script>
+
+</body>
+
+</html>
