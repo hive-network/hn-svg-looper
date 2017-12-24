@@ -36,7 +36,8 @@
         const elementShadowRoot = element.shadowRoot;
         const elementImage = elementShadowRoot.querySelector('#svgImage');
         // assert.equal(elementImage.src, '/images/logo_loader_loop.svg?l-num=1');
-        assert.include(elementImage.data, '/images/logo_loader_loop.svg', 'src contains substring');
+        // assert.include(elementImage.data, '/images/logo_loader_loop.svg', 'src contains substring');
+        assert.include(elementImage.type, 'image/svg+xml', 'is svg+xml');
 
       });
 
